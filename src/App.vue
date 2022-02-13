@@ -4,9 +4,15 @@ import SideBar from "./components/SideBar.vue";
 </script>
 
 <template>
-  <Header />
-  <SideBar />
-  <router-view />
+  <el-container>
+    <el-container>
+      <el-header><Header /></el-header>
+      <el-main> <router-view /></el-main>
+    </el-container>
+    <el-aside width="250px">
+      <SideBar />
+    </el-aside>
+  </el-container>
 </template>
 
 <style>
@@ -16,6 +22,5 @@ import SideBar from "./components/SideBar.vue";
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
