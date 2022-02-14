@@ -24,7 +24,6 @@ let member: keyof members;
 //               )
 //             ).items
 //           );
-//           store.select.push([planform, member]);
 //         } catch (error) {
 //           console.log(error);
 //         }

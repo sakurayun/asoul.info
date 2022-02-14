@@ -15,34 +15,44 @@ export interface members {
   eileen: any;
 }
 
+interface rssparsed {
+  title: any;
+  description: any;
+  link: any;
+  image: any;
+  category: any;
+  items: any[];
+}
+
 export const useStore = defineStore("main", {
   state: () => ({
-    loading: { dynamics: true, fans: true },
+    loading: { articles: true, dynamics: true, fans: true },
     select: true,
+    articles: <rssparsed["items"]>[],
     dynamics: <planforms>{
       bilibili: <members>{
-        official: [],
-        ava: [],
-        bella: [],
-        carol: [],
-        diana: [],
-        eileen: [],
+        official: <rssparsed["items"]>[],
+        ava: <rssparsed["items"]>[],
+        bella: <rssparsed["items"]>[],
+        carol: <rssparsed["items"]>[],
+        diana: <rssparsed["items"]>[],
+        eileen: <rssparsed["items"]>[],
       },
       weibo: <members>{
-        official: [],
-        ava: [],
-        bella: [],
-        carol: [],
-        diana: [],
-        eileen: [],
+        official: <rssparsed["items"]>[],
+        ava: <rssparsed["items"]>[],
+        bella: <rssparsed["items"]>[],
+        carol: <rssparsed["items"]>[],
+        diana: <rssparsed["items"]>[],
+        eileen: <rssparsed["items"]>[],
       },
       douyin: <members>{
-        official: [],
-        // ava: [],
-        // bella: [],
-        // carol: [],
-        // diana: [],
-        // eileen: [],
+        official: <rssparsed["items"]>[],
+        // ava: <rssparsed["items"]>[],
+        // bella: <rssparsed["items"]>[],
+        // carol: <rssparsed["items"]>[],
+        // diana: <rssparsed["items"]>[],
+        // eileen: <rssparsed["items"]>[],
       },
     },
     fans: <members>{
@@ -55,6 +65,9 @@ export const useStore = defineStore("main", {
     },
   }),
   actions: {
+    updateArticle(article: any[]) {
+      this.articles = article;
+    },
     updateDynamic(
       planform: keyof planforms,
       member: keyof members,
@@ -64,6 +77,24 @@ export const useStore = defineStore("main", {
     },
   },
   getters: {
+    getArticle(state) {
+      let pics = [
+        {
+          link: "https://space.bilibili.com/703007996/article",
+          image:
+            "https://i0.hdslb.com/bfs/article/f1feb589c2c4c246e6a39fe9ce80da2a76c4bec1.jpg",
+        },
+      ];
+      for (let index in state.articles) {
+        pics.push({
+          link: state.articles[index].link,
+          image:
+            state.articles[index].description.match(/<img.*?src="(.*?)"/)[1],
+        });
+        if (pics.length == 5) break;
+      }
+      return pics;
+    },
     getDynamic(state) {
       let planform: keyof planforms;
       let member: keyof members;
