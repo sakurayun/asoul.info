@@ -1,0 +1,1 @@
+import{_ as e}from"./index.625c0640.js";import{o as r,j as c}from"./vendor.9568025c.js";const o={};function n(t,s){return r(),c("div",null,"RSS\u8BA2\u9605")}var f=e(o,[["render",n]]);export{f as default};
