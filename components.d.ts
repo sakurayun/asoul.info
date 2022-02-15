@@ -11,7 +11,6 @@ declare module 'vue' {
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElHeader: typeof import('element-plus/es')['ElHeader']
-    ElImage: typeof import('element-plus/es')['ElImage']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
@@ -23,6 +22,7 @@ declare module 'vue' {
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     Header: typeof import('./src/components/Header.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
+    ReloadPrompt: typeof import('./src/components/ReloadPrompt.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
   }
 }

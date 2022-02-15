@@ -82,14 +82,15 @@ export const useStore = defineStore("main", {
         {
           link: "https://space.bilibili.com/703007996/article",
           image:
-            "https://i0.hdslb.com/bfs/article/f1feb589c2c4c246e6a39fe9ce80da2a76c4bec1.jpg",
+            "https://i0.hdslb.com/bfs/article/80d3563014013b213b1623f61d24af5fa0ef32d5.png@700w_200h_progressive.webp",
         },
       ];
       for (let index in state.articles) {
         pics.push({
           link: state.articles[index].link,
           image:
-            state.articles[index].description.match(/<img.*?src="(.*?)"/)[1],
+            state.articles[index].description.match(/<img.*?src="(.*?)"/)[1] +
+            "@700w_200h_progressive.webp",
         });
         if (pics.length == 5) break;
       }

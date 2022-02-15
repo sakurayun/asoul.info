@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import ReloadPrompt from "./components/ReloadPrompt.vue";
 import Header from "./components/Header.vue";
 import SideBar from "./components/SideBar.vue";
 </script>
 
 <template>
+  <ReloadPrompt />
   <el-container>
     <el-container>
       <el-header><Header /></el-header>
