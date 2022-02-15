@@ -1,1 +1,0 @@
-import{_ as e}from"./index.48da8890.js";import{o as r,j as o}from"./vendor.dc108626.js";const c={};function n(t,a){return r(),o("div",null,"RSS\u8BA2\u9605")}var d=e(c,[["render",n]]);export{d as default};
