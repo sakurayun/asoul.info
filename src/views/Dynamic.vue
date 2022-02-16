@@ -62,7 +62,7 @@ let member: keyof members;
     <template #default>
       <el-timeline>
         <el-timeline-item
-          v-for="(activity, index) in store.getDynamic"
+          v-for="(activity, index) in store.getDynamics"
           :key="index"
           :timestamp="activity.pubDate"
         >
