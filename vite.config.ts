@@ -49,4 +49,7 @@ export default defineConfig({
     }),
   ],
   base: "./",
+  server: {
+    host: true,
+  },
 });
