@@ -28,6 +28,8 @@ export const useStore = defineStore("main", {
   state: () => ({
     loading: { articles: true, dynamics: true, fans: true, schedules: true },
 
+    live: <rssparsed["items"]>[],
+
     articles: <rssparsed["items"]>[],
 
     schedules: <rssparsed["items"]>[],
@@ -86,6 +88,10 @@ export const useStore = defineStore("main", {
   }),
 
   actions: {
+    updateLive(live: {}) {
+      this.live.push(live);
+    },
+
     updateArticle(article: any[]) {
       this.articles = article;
     },
@@ -108,6 +114,25 @@ export const useStore = defineStore("main", {
   },
 
   getters: {
+    getLive(state) {
+      if (state.live) {
+        return state.live.map((item) => {
+          return {
+            member:item.member,
+            avatar: new URL(
+              `../assets/avatars/${item.member}.webp`,
+              import.meta.url
+            ).href,
+            description: item.live.description,
+            link: item.live.link,
+            created: item.live.created,
+          };
+        });
+      } else {
+        return [];
+      }
+    },
+
     getArticles(state) {
       let pics = [];
       for (let index in state.articles) {

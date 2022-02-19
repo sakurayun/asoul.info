@@ -18,7 +18,7 @@ const load = () => {
 const reload = () => {
   dynamics.value = store.getDynamics.slice(
     0,
-    Math.max(dynamics.value.length, 10)
+    Math.max(dynamics.value.length, 5)
   );
 };
 
@@ -27,7 +27,7 @@ onBeforeMount(
   () => {
     Promise.all(
       store.selected.map(([planform, member]) => {
-        return new Promise<void>(async (resolve, reject) => {
+        return new Promise<void>(async (resolve) => {
           try {
             store.updateDynamic(
               planform,
@@ -57,7 +57,6 @@ onBeforeMount(
       })
     ).then(() => {
       store.loading.dynamics = false;
-      dynamics.value = store.getDynamics.slice(0, 10);
     });
   }
 );

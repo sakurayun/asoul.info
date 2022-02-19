@@ -7,7 +7,7 @@ import Header from "./components/Header.vue";
   <ReloadPrompt />
   <el-container>
     <el-header><Header /></el-header>
-    <el-main> <router-view /></el-main>
+    <el-main><router-view /></el-main>
   </el-container>
 </template>
 
