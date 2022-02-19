@@ -7,12 +7,12 @@ const store = useStore();
 let planform: keyof planforms;
 let member: keyof members;
 
-// 创建表单
-const selected = ref(["bilibili", "official"]);
-
 const rssurl = computed(
   () => "https://rss.asoul.info/" + selected.value[0] + "/" + selected.value[1]
 );
+
+// 创建表单
+const selected = ref(["bilibili", "official"]);
 
 const options: {
   value: keyof planforms;

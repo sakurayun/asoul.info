@@ -27,8 +27,11 @@ interface rssparsed {
 export const useStore = defineStore("main", {
   state: () => ({
     loading: { articles: true, dynamics: true, fans: true, schedules: true },
+
     articles: <rssparsed["items"]>[],
+
     schedules: <rssparsed["items"]>[],
+
     fans: <members>{
       official: <rssparsed["items"]>[],
       ava: <rssparsed["items"]>[],
@@ -37,6 +40,7 @@ export const useStore = defineStore("main", {
       diana: <rssparsed["items"]>[],
       eileen: <rssparsed["items"]>[],
     },
+
     dynamics: <planforms>{
       bilibili: <members>{
         official: <rssparsed["items"]>[],
@@ -63,18 +67,23 @@ export const useStore = defineStore("main", {
         // eileen: <rssparsed["items"]>[],
       },
     },
+
     selected: <[keyof planforms, keyof members][]>[],
   }),
+
   actions: {
     updateArticle(article: any[]) {
       this.articles = article;
     },
+
     updateSchedule(schedule: any[]) {
       this.schedules = schedule;
     },
+
     updateFan(member: keyof members, fan: any[]) {
       this.fans[member] = fan;
     },
+
     updateDynamic(
       planform: keyof planforms,
       member: keyof members,
@@ -83,15 +92,10 @@ export const useStore = defineStore("main", {
       this.dynamics[planform][member] = dynamic;
     },
   },
+
   getters: {
     getArticles(state) {
-      let pics = [
-        {
-          link: "https://space.bilibili.com/703007996/article",
-          image:
-            "https://i0.hdslb.com/bfs/article/80d3563014013b213b1623f61d24af5fa0ef32d5.png@700w_200h_progressive.webp",
-        },
-      ];
+      let pics = [];
       for (let index in state.articles) {
         pics.push({
           link: state.articles[index].link,
@@ -103,17 +107,20 @@ export const useStore = defineStore("main", {
       }
       return pics;
     },
+
     getSchedules(state) {
       for (let index in state.schedules) {
         if (state.schedules[index].description.match(/日程表/)[0]) {
           return {
             link: state.schedules[index].link,
-            image:
-              state.schedules[index].description.match(/<img.*?src="(.*?)"/)[1],
+            image: state.schedules[index].description
+              .match(/<img.*?src="(.*?)"/)[1]
+              .replace("large", "middle"),
           };
         }
       }
     },
+
     getFans(state) {
       let member: keyof members;
       let fans: { avatar: string; count: number; followers: string[] }[] = [];
@@ -133,6 +140,7 @@ export const useStore = defineStore("main", {
       }
       return fans;
     },
+
     getDynamics(state) {
       let dynamics: any[] = [];
       state.selected.forEach(([planform, member]) => {

@@ -22,6 +22,7 @@ onBeforeMount(async () => {
     console.log(error);
   }
   store.loading.articles = false;
+
   // 获取官号微博
   try {
     store.updateSchedule(
@@ -31,6 +32,7 @@ onBeforeMount(async () => {
     console.log(error);
   }
   store.loading.schedules = false;
+
   // 获取粉丝数
   for (member in store.fans) {
     try {
@@ -49,15 +51,23 @@ onBeforeMount(async () => {
 <template>
   <el-row>
     <el-col :span="24">
-      <el-carousel trigger="click" v-loading="store.loading.articles">
-        <el-carousel-item v-for="item in store.getArticles">
-          <a target="_blank" :href="item.link">
-            <img :src="item.image" referrerpolicy="no-referrer"
-          /></a>
-        </el-carousel-item>
-      </el-carousel>
+      <el-skeleton :loading="store.loading.articles" animated>
+        <template #template>
+          <el-skeleton-item variant="image" />
+        </template>
+        <template #default>
+          <el-carousel trigger="click">
+            <el-carousel-item v-for="item in store.getArticles">
+              <a target="_blank" :href="item.link">
+                <img :src="item.image" referrerpolicy="no-referrer" />
+              </a>
+            </el-carousel-item>
+          </el-carousel>
+        </template>
+      </el-skeleton>
     </el-col>
   </el-row>
+
   <el-row>
     <el-col :span="10">
       <el-skeleton :loading="store.loading.fans" animated>
@@ -77,17 +87,14 @@ onBeforeMount(async () => {
         </template>
       </el-skeleton>
     </el-col>
+
     <el-col :span="14">
       <el-skeleton :loading="store.loading.schedules" animated>
         <template #template>
           <el-skeleton-item variant="image" />
         </template>
         <template #default>
-          <el-image
-            :src="store.getSchedules?.image"
-            referrerpolicy="no-referrer"
-            fit="scale-down"
-          ></el-image>
+          <img :src="store.getSchedules?.image" referrerpolicy="no-referrer" />
         </template>
       </el-skeleton>
     </el-col>

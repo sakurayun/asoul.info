@@ -57,7 +57,7 @@ onBeforeMount(
   }
 );
 
-// 创建表单
+// 创建抽屉
 const drawer = ref(false);
 
 const props = { multiple: true };
@@ -83,13 +83,13 @@ for (planform in store.dynamics) {
 </script>
 
 <template>
-  <el-button
-    type="primary"
-    :loading="store.loading.dynamics"
-    @click="drawer = true"
-  >
-    open
-  </el-button>
+    <el-button
+      type="primary"
+      :loading="store.loading.dynamics"
+      @click="drawer = true"
+    >
+      open
+    </el-button>
 
   <el-drawer v-model="drawer" @close="reload" title="动态选择">
     <el-cascader-panel
@@ -99,67 +99,40 @@ for (planform in store.dynamics) {
     />
   </el-drawer>
 
-  <el-skeleton
-    style="width: 240px"
-    :loading="store.loading.dynamics"
-    animated
-    :throttle="500"
+  <ul
+    v-infinite-scroll="load"
+    infinite-scroll-distance="100"
+    class="infinite-list"
+    style="overflow: auto"
+    v-loading="store.loading.dynamics"
   >
-    <template #template>
-      <el-skeleton-item variant="image" style="width: 240px; height: 240px" />
-      <div style="padding: 14px">
-        <el-skeleton-item variant="h3" style="width: 50%" />
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-items: space-between;
-            margin-top: 16px;
-            height: 16px;
-          "
-        >
-          <el-skeleton-item variant="text" style="margin-right: 16px" />
-          <el-skeleton-item variant="text" style="width: 30%" />
-        </div>
-      </div>
-    </template>
-    <template #default>
-      <ul
-        v-infinite-scroll="load"
-        infinite-scroll-distance="100"
-        class="infinite-list"
-        style="overflow: auto"
+    <el-timeline>
+      <el-timeline-item
+        v-for="dynamic in dynamics"
+        :timestamp="new Date(dynamic.created).toLocaleString()"
+        placement="top"
       >
-        <el-timeline>
-          <el-timeline-item
-            v-for="dynamic in dynamics"
-            :timestamp="new Date(dynamic.created).toLocaleString()"
-            placement="top"
-          >
-            <el-card>
-              <div>
-                <el-avatar size="small" :src="dynamic.planform"></el-avatar>
-                <el-avatar size="small" :src="dynamic.member"></el-avatar>
-              </div>
-              <div>{{ dynamic.title }}</div>
-              <div>
-                <el-tag
-                  ><el-link :icon="View" target="_blank" :href="dynamic.link"
-                    >原动态</el-link
-                  >
-                </el-tag>
-              </div>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
-      </ul>
-    </template>
-  </el-skeleton>
+        <el-card>
+          <div>
+            <el-avatar size="small" :src="dynamic.planform"></el-avatar>
+            <el-avatar size="small" :src="dynamic.member"></el-avatar>
+          </div>
+          <div>{{ dynamic.title }}</div>
+          <div>
+            <el-tag
+              ><el-link :icon="View" target="_blank" :href="dynamic.link"
+                >原动态</el-link
+              >
+            </el-tag>
+          </div>
+        </el-card>
+      </el-timeline-item>
+    </el-timeline>
+  </ul>
 </template>
 
 <style scoped>
 .infinite-list {
   height: 600px;
-  list-style: none;
 }
 </style>
