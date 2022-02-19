@@ -5,46 +5,63 @@ import { useStore, members } from "../utils/stores";
 
 const store = useStore();
 
-let member: keyof members;
-
-onBeforeMount(async () => {
+onBeforeMount(() => {
   // 获取官号文章
-  try {
-    store.updateArticle(
-      (
-        await parse(
-          "https://rss.asoul.info/bilibili/user/article/703007996",
-          {}
-        )
-      ).items
-    );
-  } catch (error) {
-    console.log(error);
-  }
-  store.loading.articles = false;
-
-  // 获取官号微博
-  try {
-    store.updateSchedule(
-      (await parse("https://rss.asoul.info/weibo/official", {})).items
-    );
-  } catch (error) {
-    console.log(error);
-  }
-  store.loading.schedules = false;
-
-  // 获取粉丝数
-  for (member in store.fans) {
+  (async () => {
     try {
-      store.updateFan(
-        member,
-        (await parse("https://rss.asoul.info/fans/" + member, {})).items
+      store.updateArticle(
+        (
+          await parse(
+            "https://rss.asoul.info/bilibili/user/article/703007996",
+            {}
+          )
+        ).items
       );
+      store.loading.articles = false;
     } catch (error) {
       console.log(error);
     }
-  }
-  store.loading.fans = false;
+  })();
+
+  // 获取官号微博
+  (async () => {
+    try {
+      store.updateSchedule(
+        (await parse("https://rss.asoul.info/weibo/official", {})).items
+      );
+      store.loading.schedules = false;
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+
+  // 获取粉丝数
+  Promise.all(
+    Reflect.ownKeys(store.fans).map((member) => {
+      return new Promise<void>(async (resolve, reject) => {
+        try {
+          store.updateFan(
+            member as keyof members,
+            (
+              await parse(
+                "https://rss.asoul.info/fans/" + (member as string),
+                {}
+              )
+            ).items
+          );
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
+    })
+  )
+    .then(() => {
+      store.loading.fans = false;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 </script>
 
@@ -56,7 +73,7 @@ onBeforeMount(async () => {
           <el-skeleton-item variant="image" />
         </template>
         <template #default>
-          <el-carousel trigger="click">
+          <el-carousel indicator-position="outside" trigger="click">
             <el-carousel-item v-for="item in store.getArticles">
               <a target="_blank" :href="item.link">
                 <img :src="item.image" referrerpolicy="no-referrer" />

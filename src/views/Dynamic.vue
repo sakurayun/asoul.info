@@ -24,36 +24,41 @@ const reload = () => {
 
 onBeforeMount(
   // 获取动态
-  async () => {
-    for (planform in store.dynamics) {
-      for (member in store.dynamics[planform]) {
-        try {
-          store.updateDynamic(
-            planform,
-            member,
-            (
-              await parse(
-                "https://rss.asoul.info/" + planform + "/" + member,
-                {}
-              )
-            ).items
-          );
-        } catch (error) {
-          console.log(error);
-          options.forEach((option) => {
-            if (option.value === planform) {
-              option.children.forEach((child) => {
-                if (child.value === member) {
-                  child.disabled = true;
-                }
-              });
-            }
-          });
-        }
-      }
-    }
-    store.loading.dynamics = false;
-    dynamics.value = store.getDynamics.slice(0, 10);
+  () => {
+    Promise.all(
+      store.selected.map(([planform, member]) => {
+        return new Promise<void>(async (resolve, reject) => {
+          try {
+            store.updateDynamic(
+              planform,
+              member,
+              (
+                await parse(
+                  "https://rss.asoul.info/" + planform + "/" + member,
+                  {}
+                )
+              ).items
+            );
+            options.forEach((option) => {
+              if (option.value === planform) {
+                option.children.forEach((child) => {
+                  if (child.value === member) {
+                    child.disabled = false;
+                  }
+                });
+              }
+            });
+            resolve();
+          } catch (error) {
+            console.log(error);
+            resolve();
+          }
+        });
+      })
+    ).then(() => {
+      store.loading.dynamics = false;
+      dynamics.value = store.getDynamics.slice(0, 10);
+    });
   }
 );
 
@@ -74,22 +79,21 @@ for (planform in store.dynamics) {
     children.push({
       value: member,
       label: member,
-      disabled: false,
+      disabled: true,
     });
-    store.selected.push([planform, member]);
   }
   options.push({ value: planform, label: planform, children: children });
 }
 </script>
 
 <template>
-    <el-button
-      type="primary"
-      :loading="store.loading.dynamics"
-      @click="drawer = true"
-    >
-      open
-    </el-button>
+  <el-button
+    type="primary"
+    :loading="store.loading.dynamics"
+    @click="drawer = true"
+  >
+    open
+  </el-button>
 
   <el-drawer v-model="drawer" @close="reload" title="动态选择">
     <el-cascader-panel
