@@ -105,7 +105,7 @@ onBeforeMount(() => {
                   title="new followers"
                   :width="200"
                   trigger="hover"
-                  :content="scope.row.followers"
+                  :content="scope.row.followers.toLocaleString()"
                 >
                   <template #reference>
                     {{ scope.row.count }}

@@ -18,10 +18,7 @@ onBeforeMount(() => {
           store.updateLive({
             member: member,
             live: (
-              await parse(
-                "https://rss.asoul.info/live/" + (member as string),
-                {}
-              )
+              await parse("https://rss.asoul.info/bilibili/live/room/3", {})
             ).items[0],
           });
           resolve();
@@ -53,11 +50,12 @@ onBeforeMount(() => {
     <el-menu-item index="/">首页</el-menu-item>
     <el-menu-item index="/dynamic">动态</el-menu-item>
     <el-menu-item index="/rss">RSS订阅</el-menu-item>
-
-    <div v-if="store.getLive.length">正在直播</div>
-    <a v-for="live in store.getLive" target="_blank" :href="live.link">
-      <el-avatar :src="live.avatar"></el-avatar>
-    </a>
+    <el-sub-menu index="live" :disabled="store.getLive.length == 0">
+      <template #title>正在直播</template>
+      <a v-for="live in store.getLive" target="_blank" :href="live.link">
+        <el-avatar :src="live.avatar"></el-avatar>
+      </a>
+    </el-sub-menu>
   </el-menu>
 </template>
 

@@ -109,7 +109,7 @@ export const useStore = defineStore("main", {
       if (state.live) {
         return state.live.map((item) => {
           return {
-            member: item.member,
+            member: item.member.charAt(0).toUpperCase() + item.member.slice(1),
             avatar: new URL(
               `../assets/avatars/${item.member}.webp`,
               import.meta.url
