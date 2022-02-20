@@ -18,7 +18,10 @@ onBeforeMount(() => {
           store.updateLive({
             member: member,
             live: (
-              await parse("https://rss.asoul.info/bilibili/live/room/3", {})
+              await parse(
+                "https://rss.asoul.info/live/" + (member as string),
+                {}
+              )
             ).items[0],
           });
           resolve();
