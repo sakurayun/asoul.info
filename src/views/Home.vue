@@ -98,8 +98,21 @@ onBeforeMount(() => {
                 <el-avatar :src="scope.row.avatar"></el-avatar>
               </template>
             </el-table-column>
-            <el-table-column prop="count" label="count" />
-            <el-table-column prop="followers" label="new followers" />
+            <el-table-column label="count">
+              <template #default="scope">
+                <el-popover
+                  placement="top-start"
+                  title="new followers"
+                  :width="200"
+                  trigger="hover"
+                  :content="scope.row.followers"
+                >
+                  <template #reference>
+                    {{ scope.row.count }}
+                  </template>
+                </el-popover>
+              </template>
+            </el-table-column>
           </el-table>
         </template>
       </el-skeleton>

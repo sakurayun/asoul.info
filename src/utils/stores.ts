@@ -15,58 +15,49 @@ export interface members {
   eileen: any;
 }
 
-interface rssparsed {
-  title: any;
-  description: any;
-  link: any;
-  image: any;
-  category: any;
-  items: any[];
-}
-
 export const useStore = defineStore("main", {
   state: () => ({
     loading: { articles: true, dynamics: true, fans: true, schedules: true },
 
-    live: <rssparsed["items"]>[],
+    live: <any[]>[],
 
-    articles: <rssparsed["items"]>[],
+    articles: <any[]>[],
 
-    schedules: <rssparsed["items"]>[],
+    schedules: <any[]>[],
 
     fans: <members>{
-      official: <rssparsed["items"]>[],
-      ava: <rssparsed["items"]>[],
-      bella: <rssparsed["items"]>[],
-      carol: <rssparsed["items"]>[],
-      diana: <rssparsed["items"]>[],
-      eileen: <rssparsed["items"]>[],
+      official: <any[]>[],
+      ava: <any[]>[],
+      bella: <any[]>[],
+      carol: <any[]>[],
+      diana: <any[]>[],
+      eileen: <any[]>[],
     },
 
     dynamics: <planforms>{
       bilibili: <members>{
-        official: <rssparsed["items"]>[],
-        ava: <rssparsed["items"]>[],
-        bella: <rssparsed["items"]>[],
-        carol: <rssparsed["items"]>[],
-        diana: <rssparsed["items"]>[],
-        eileen: <rssparsed["items"]>[],
+        official: <any[]>[],
+        ava: <any[]>[],
+        bella: <any[]>[],
+        carol: <any[]>[],
+        diana: <any[]>[],
+        eileen: <any[]>[],
       },
       weibo: <members>{
-        official: <rssparsed["items"]>[],
-        ava: <rssparsed["items"]>[],
-        bella: <rssparsed["items"]>[],
-        carol: <rssparsed["items"]>[],
-        diana: <rssparsed["items"]>[],
-        eileen: <rssparsed["items"]>[],
+        official: <any[]>[],
+        ava: <any[]>[],
+        bella: <any[]>[],
+        carol: <any[]>[],
+        diana: <any[]>[],
+        eileen: <any[]>[],
       },
       douyin: <members>{
-        official: <rssparsed["items"]>[],
-        ava: <rssparsed["items"]>[],
-        bella: <rssparsed["items"]>[],
-        carol: <rssparsed["items"]>[],
-        diana: <rssparsed["items"]>[],
-        eileen: <rssparsed["items"]>[],
+        official: <any[]>[],
+        ava: <any[]>[],
+        bella: <any[]>[],
+        carol: <any[]>[],
+        diana: <any[]>[],
+        eileen: <any[]>[],
       },
     },
 
@@ -118,7 +109,7 @@ export const useStore = defineStore("main", {
       if (state.live) {
         return state.live.map((item) => {
           return {
-            member:item.member,
+            member: item.member,
             avatar: new URL(
               `../assets/avatars/${item.member}.webp`,
               import.meta.url
