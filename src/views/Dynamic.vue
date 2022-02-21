@@ -86,14 +86,6 @@ for (planform in store.dynamics) {
 </script>
 
 <template>
-  <el-button
-    type="primary"
-    :loading="store.loading.dynamics"
-    @click="drawer = true"
-  >
-    open
-  </el-button>
-
   <el-drawer v-model="drawer" @close="reload" title="动态选择">
     <el-cascader-panel
       v-model="store.selected"
@@ -102,40 +94,62 @@ for (planform in store.dynamics) {
     />
   </el-drawer>
 
-  <ul
-    v-infinite-scroll="load"
-    infinite-scroll-distance="100"
-    class="infinite-list"
-    style="overflow: auto"
-    v-loading="store.loading.dynamics"
-  >
-    <el-timeline>
-      <el-timeline-item
-        v-for="dynamic in dynamics"
-        :timestamp="new Date(dynamic.created).toLocaleString()"
-        placement="top"
-      >
-        <el-card>
-          <div>
-            <el-avatar size="small" :src="dynamic.planform"></el-avatar>
-            <el-avatar size="small" :src="dynamic.member"></el-avatar>
-          </div>
-          <div>{{ dynamic.title }}</div>
-          <div>
-            <el-tag
-              ><el-link :icon="View" target="_blank" :href="dynamic.link"
-                >原动态</el-link
-              >
-            </el-tag>
-          </div>
-        </el-card>
-      </el-timeline-item>
-    </el-timeline>
-  </ul>
+  <el-row justify="space-between">
+    <div class="title">最近动态</div>
+    <el-button
+      type="text"
+      :loading="store.loading.dynamics"
+      @click="drawer = true"
+    >
+      选择
+    </el-button>
+  </el-row>
+
+  <el-row>
+    <el-col :span="24">
+      <el-card>
+        <ul
+          v-infinite-scroll="load"
+          infinite-scroll-distance="100"
+          class="infinite-list"
+          style="overflow: auto"
+          v-loading="store.loading.dynamics"
+        >
+          <el-timeline>
+            <el-timeline-item
+              v-for="dynamic in dynamics"
+              :timestamp="new Date(dynamic.created).toLocaleString()"
+              placement="top"
+            >
+              <el-card>
+                <div>
+                  <el-avatar size="small" :src="dynamic.planform"></el-avatar>
+                  <el-avatar size="small" :src="dynamic.member"></el-avatar>
+                </div>
+                <div>{{ dynamic.title }}</div>
+                <div>
+                  <el-tag
+                    ><el-link :icon="View" target="_blank" :href="dynamic.link"
+                      >原动态</el-link
+                    >
+                  </el-tag>
+                </div>
+              </el-card>
+            </el-timeline-item>
+          </el-timeline>
+        </ul>
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
 <style scoped>
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
 .infinite-list {
-  height: 600px;
+  height: calc(100vh - 300px);
 }
 </style>

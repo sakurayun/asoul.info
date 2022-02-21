@@ -66,67 +66,76 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <el-row>
-    <el-col :span="24">
-      <el-skeleton :loading="store.loading.articles" animated>
-        <template #template>
-          <el-skeleton-item variant="image" />
-        </template>
-        <template #default>
-          <el-carousel indicator-position="outside" trigger="click">
-            <el-carousel-item v-for="item in store.getArticles">
-              <a target="_blank" :href="item.link">
-                <img :src="item.image" referrerpolicy="no-referrer" />
-              </a>
-            </el-carousel-item>
-          </el-carousel>
-        </template>
-      </el-skeleton>
+  <el-row justify="center">
+    <el-col :span="22">
+      <el-card>
+        <el-skeleton :loading="store.loading.articles" animated>
+          <template #template>
+            <el-skeleton-item variant="image" />
+          </template>
+          <template #default>
+            <el-carousel trigger="click" arrow="never">
+              <el-carousel-item v-for="item in store.getArticles">
+                <a target="_blank" :href="item.link">
+                  <img :src="item.image" referrerpolicy="no-referrer" />
+                </a>
+              </el-carousel-item>
+            </el-carousel>
+          </template>
+        </el-skeleton>
+      </el-card>
     </el-col>
   </el-row>
 
-  <el-row>
-    <el-col :span="10">
-      <el-skeleton :loading="store.loading.fans" animated>
-        <template #template>
-          <el-skeleton-item variant="image" />
-        </template>
-        <template #default>
-          <el-table :data="store.getFans">
-            <el-table-column label="member">
-              <template #default="scope">
-                <el-avatar :src="scope.row.avatar"></el-avatar>
-              </template>
-            </el-table-column>
-            <el-table-column label="count">
-              <template #default="scope">
-                <el-popover
-                  placement="top-start"
-                  title="new followers"
-                  :width="200"
-                  trigger="hover"
-                  :content="scope.row.followers.toLocaleString()"
-                >
-                  <template #reference>
-                    {{ scope.row.count }}
-                  </template>
-                </el-popover>
-              </template>
-            </el-table-column>
-          </el-table>
-        </template>
-      </el-skeleton>
+  <el-row :gutter="20">
+    <el-col :span="18">
+      <el-card>
+        <el-skeleton :loading="store.loading.schedules" animated>
+          <template #template>
+            <el-skeleton-item variant="image" />
+          </template>
+          <template #default>
+            <img
+              :src="store.getSchedules?.image"
+              referrerpolicy="no-referrer"
+            />
+          </template>
+        </el-skeleton>
+      </el-card>
     </el-col>
 
-    <el-col :span="14">
-      <el-skeleton :loading="store.loading.schedules" animated>
-        <template #template>
-          <el-skeleton-item variant="image" />
-        </template>
-        <template #default>
-          <img :src="store.getSchedules?.image" referrerpolicy="no-referrer" />
-        </template>
-      </el-skeleton>
+    <el-col :span="6">
+      <el-card>
+        <el-skeleton :loading="store.loading.fans" animated>
+          <template #template>
+            <el-skeleton-item variant="image" />
+          </template>
+          <template #default>
+            <el-table :data="store.getFans">
+              <el-table-column label="member">
+                <template #default="scope">
+                  <el-avatar :src="scope.row.avatar"></el-avatar>
+                </template>
+              </el-table-column>
+              <el-table-column label="count">
+                <template #default="scope">
+                  <el-popover
+                    placement="top-start"
+                    title="new followers"
+                    :width="200"
+                    trigger="hover"
+                    :content="scope.row.followers.toLocaleString()"
+                  >
+                    <template #reference>
+                      {{ scope.row.count }}
+                    </template>
+                  </el-popover>
+                </template>
+              </el-table-column>
+            </el-table>
+          </template>
+        </el-skeleton>
+      </el-card>
     </el-col>
   </el-row>
 </template>

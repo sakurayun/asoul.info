@@ -5,10 +5,14 @@ import Header from "./components/Header.vue";
 
 <template>
   <ReloadPrompt />
-  <el-container>
-    <el-header><Header /></el-header>
-    <el-main><router-view /></el-main>
-  </el-container>
+  <el-scrollbar height="calc(100vh - 20px)">
+    <el-container>
+      <el-header><Header /></el-header>
+      <el-main style="max-width: 1080px; margin: auto">
+        <router-view />
+      </el-main>
+    </el-container>
+  </el-scrollbar>
 </template>
 
 <style>
@@ -18,5 +22,8 @@ import Header from "./components/Header.vue";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+.el-row {
+  margin-bottom: 20px;
 }
 </style>
