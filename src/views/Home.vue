@@ -67,14 +67,19 @@ onBeforeMount(() => {
 
 <template>
   <el-row justify="center">
-    <el-col :span="22">
-      <el-card>
+    <el-col :md="20" :sm="21">
+      <el-card :body-style="{ padding: '0px' }" shadow="hover">
         <el-skeleton :loading="store.loading.articles" animated>
           <template #template>
             <el-skeleton-item variant="image" />
           </template>
           <template #default>
-            <el-carousel trigger="click" arrow="never">
+            <el-carousel
+              height="auto"
+              trigger="click"
+              indicator-position="outside"
+            >
+              <img :src="store.getArticles[0].image" alt="" class="toolImg" />
               <el-carousel-item v-for="item in store.getArticles">
                 <a target="_blank" :href="item.link">
                   <img :src="item.image" referrerpolicy="no-referrer" />
@@ -88,8 +93,19 @@ onBeforeMount(() => {
   </el-row>
 
   <el-row :gutter="20">
-    <el-col :span="18">
-      <el-card>
+    <el-col :md="18" :sm="17">
+      <el-card :body-style="{ padding: '5px' }" shadow="hover">
+        <template #header>
+          <div class="card-header">
+            <span>日程表</span>
+            <el-link
+              type="info"
+              target="_blank"
+              :href="store.getSchedules?.link"
+              >原动态</el-link
+            >
+          </div>
+        </template>
         <el-skeleton :loading="store.loading.schedules" animated>
           <template #template>
             <el-skeleton-item variant="image" />
@@ -104,24 +120,24 @@ onBeforeMount(() => {
       </el-card>
     </el-col>
 
-    <el-col :span="6">
-      <el-card>
+    <el-col :md="6" :sm="7">
+      <el-card shadow="hover">
         <el-skeleton :loading="store.loading.fans" animated>
           <template #template>
             <el-skeleton-item variant="image" />
           </template>
           <template #default>
             <el-table :data="store.getFans">
-              <el-table-column label="member">
+              <el-table-column label="成员">
                 <template #default="scope">
                   <el-avatar :src="scope.row.avatar"></el-avatar>
                 </template>
               </el-table-column>
-              <el-table-column label="count">
+              <el-table-column label="粉丝数">
                 <template #default="scope">
                   <el-popover
                     placement="top-start"
-                    title="new followers"
+                    title="新粉丝"
                     :width="200"
                     trigger="hover"
                     :content="scope.row.followers.toLocaleString()"
@@ -140,4 +156,17 @@ onBeforeMount(() => {
   </el-row>
 </template>
 
-<style scoped></style>
+<style scoped>
+img {
+  width: 100%;
+}
+.toolImg {
+  opacity: 0;
+  width: 100%;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

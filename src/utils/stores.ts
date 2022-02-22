@@ -131,7 +131,7 @@ export const useStore = defineStore("main", {
           link: state.articles[index].link,
           image:
             state.articles[index].description.match(/<img.*?src="(.*?)"/)[1] +
-            "@700w_200h_progressive.webp",
+            "@783w_230h_progressive.webp",
         });
         if (pics.length == 5) break;
       }

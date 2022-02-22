@@ -61,8 +61,8 @@ onBeforeMount(
   }
 );
 
-// 创建抽屉
-const drawer = ref(false);
+// 创建选项卡
+const dialogVisible = ref(false);
 
 const props = { multiple: true };
 
@@ -86,20 +86,25 @@ for (planform in store.dynamics) {
 </script>
 
 <template>
-  <el-drawer v-model="drawer" @close="reload" title="动态选择">
+  <el-dialog
+    v-model="dialogVisible"
+    title="动态选择"
+    width="360px"
+    :close="reload"
+  >
     <el-cascader-panel
       v-model="store.selected"
       :options="options"
       :props="props"
     />
-  </el-drawer>
+  </el-dialog>
 
   <el-row justify="space-between">
     <div class="title">最近动态</div>
     <el-button
       type="text"
       :loading="store.loading.dynamics"
-      @click="drawer = true"
+      @click="dialogVisible = true"
     >
       选择
     </el-button>

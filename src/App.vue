@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import ReloadPrompt from "./components/ReloadPrompt.vue";
 import Header from "./components/Header.vue";
+import Banner from "./components/Banner.vue";
 </script>
 
 <template>
   <ReloadPrompt />
-  <el-scrollbar height="calc(100vh - 20px)">
-    <el-container>
-      <el-header><Header /></el-header>
-      <el-main style="max-width: 1080px; margin: auto">
-        <router-view />
-      </el-main>
-    </el-container>
-  </el-scrollbar>
+  <el-container>
+    <el-header><Header /></el-header>
+    <el-main style="max-width: 1080px; margin: auto">
+      <Banner />
+      <router-view />
+    </el-main>
+  </el-container>
 </template>
 
 <style>
@@ -22,6 +22,9 @@ import Header from "./components/Header.vue";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+html {
+  background-color: #f4f4f4;
 }
 .el-row {
   margin-bottom: 20px;
