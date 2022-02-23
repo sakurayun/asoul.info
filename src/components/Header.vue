@@ -58,9 +58,9 @@ onBeforeMount(() => {
       <el-menu-item index="/rss">RSS订阅</el-menu-item>
     </el-menu>
     <div class="toolbar-title toolbar-side">
-      <a href="/">
-        <el-button>A-Soul Info</el-button>
-      </a>
+      <el-link :underline="false" class="site-title" href="/">
+        A-Soul Info
+      </el-link>
     </div>
     <div class="toolbar-action toolbar-side">
       <el-space>
@@ -95,8 +95,9 @@ onBeforeMount(() => {
   left: 0;
   padding-left: 80px;
 }
-.toolbar-title a {
-  text-decoration: none;
+.site-title {
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 .toolbar-action {
   right: 0;

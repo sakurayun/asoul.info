@@ -155,11 +155,15 @@ export const useStore = defineStore("main", {
       let member: keyof members;
       let fans: { avatar: string; count: number; followers: string[] }[] = [];
       for (member in state.fans) {
+        console.log(member);
+        let n: number = 0;
         let m: string[] = [];
-        let n = state.fans[member][0].description.match(/<br>总计(.*)/)[1];
-        for (let index in state.fans[member]) {
-          m.push(state.fans[member][index].title.match(/新粉丝 (.*)/)[1]);
-          if (m.length == 3) break;
+        if (state.fans[member].length > 0) {
+          n = state.fans[member][0].description.match(/<br>总计(.*)/)[1];
+          for (let index in state.fans[member]) {
+            m.push(state.fans[member][index].title.match(/新粉丝 (.*)/)[1]);
+            if (m.length == 3) break;
+          }
         }
         fans.push({
           avatar: new URL(`../assets/avatars/${member}.webp`, import.meta.url)

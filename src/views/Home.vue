@@ -66,35 +66,36 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <el-row justify="center">
+  <el-row class="article-box" justify="center">
     <el-col :md="20" :sm="21">
       <el-card :body-style="{ padding: '0px' }" shadow="hover">
-        <el-skeleton :loading="store.loading.articles" animated>
-          <template #template>
-            <el-skeleton-item variant="image" />
-          </template>
-          <template #default>
-            <el-carousel
-              height="auto"
-              trigger="click"
-              indicator-position="outside"
-            >
+        <el-carousel height="auto" trigger="click" indicator-position="outside">
+          <el-skeleton :loading="store.loading.articles" animated>
+            <template #template>
+              <el-carousel-item class="skeleton-article">
+                <el-skeleton-item class="skeleton-img" variant="image" />
+              </el-carousel-item>
+              <el-carousel-item v-for="index in 4">
+                <el-skeleton-item class="skeleton-img" variant="image" />
+              </el-carousel-item>
+            </template>
+            <template #default>
               <img :src="store.getArticles[0].image" alt="" class="toolImg" />
               <el-carousel-item v-for="item in store.getArticles">
                 <a target="_blank" :href="item.link">
                   <img :src="item.image" referrerpolicy="no-referrer" />
                 </a>
               </el-carousel-item>
-            </el-carousel>
-          </template>
-        </el-skeleton>
+            </template>
+          </el-skeleton>
+        </el-carousel>
       </el-card>
     </el-col>
   </el-row>
 
   <el-row :gutter="20">
-    <el-col :md="18" :sm="17">
-      <el-card :body-style="{ padding: '5px' }" shadow="hover">
+    <el-col class="info-box" :md="18" :sm="17">
+      <el-card :body-style="{ padding: '10px' }" shadow="hover">
         <template #header>
           <div class="card-header">
             <span>日程表</span>
@@ -108,7 +109,9 @@ onBeforeMount(() => {
         </template>
         <el-skeleton :loading="store.loading.schedules" animated>
           <template #template>
-            <el-skeleton-item variant="image" />
+            <div class="skeleton-schedule">
+              <el-skeleton-item class="skeleton-img" variant="image" />
+            </div>
           </template>
           <template #default>
             <img
@@ -120,11 +123,22 @@ onBeforeMount(() => {
       </el-card>
     </el-col>
 
-    <el-col :md="6" :sm="7">
+    <el-col class="info-box" :md="6" :sm="7">
       <el-card shadow="hover">
         <el-skeleton :loading="store.loading.fans" animated>
           <template #template>
-            <el-skeleton-item variant="image" />
+            <el-table :data="store.getFans">
+              <el-table-column label="成员">
+                <template #default="scope">
+                  <el-avatar :src="scope.row.avatar"></el-avatar>
+                </template>
+              </el-table-column>
+              <el-table-column label="粉丝数">
+                <template #default>
+                  <el-skeleton-item variant="text" />
+                </template>
+              </el-table-column>
+            </el-table>
           </template>
           <template #default>
             <el-table :data="store.getFans">
@@ -162,11 +176,31 @@ img {
 }
 .toolImg {
   opacity: 0;
-  width: 100%;
+}
+.article-box {
+  margin-bottom: 20px;
+}
+.info-box {
+  margin-bottom: 10px;
 }
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.skeleton-img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.skeleton-article {
+  width: 100%;
+  padding-bottom: 29.375%;
+  position: relative;
+}
+.skeleton-schedule {
+  width: 100%;
+  padding-bottom: 67%;
+  position: relative;
 }
 </style>

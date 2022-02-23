@@ -3,38 +3,40 @@ import Bella from "../assets/images/beilalabella.webp";
 
 const images = [
   {
-    author: "枝江防冻液",
+    uid: "20682852",
     image:
-      "https://i0.hdslb.com/bfs/album/80f9fe1428b635bdc42c556a5c745318d2816a5b.png",
+      "https://i0.hdslb.com/bfs/album/80f9fe1428b635bdc42c556a5c745318d2816a5b.png@1080w.webp",
   },
   {
-    author: "ZZZ纸盒",
+    uid: "5298187",
     image:
-      "https://i0.hdslb.com/bfs/album/23e194fab395f6f56fa449f20d4895e0746e11d2.jpg",
+      "https://i0.hdslb.com/bfs/album/23e194fab395f6f56fa449f20d4895e0746e11d2.jpg@1080w.webp",
   },
   {
-    author: "ZZZ纸盒",
+    uid: "5298187",
     image:
-      "https://i0.hdslb.com/bfs/album/b45347cdfa7b44f2c8bf7b3f08fcb7f568b8e7b8.jpg",
+      "https://i0.hdslb.com/bfs/album/b45347cdfa7b44f2c8bf7b3f08fcb7f568b8e7b8.jpg@1080w.webp",
   },
   {
-    author: "ZZZ纸盒",
+    uid: "5298187",
     image:
-      "https://i0.hdslb.com/bfs/album/88ac0f630e41feb972091f4374978085552302f9.jpg",
+      "https://i0.hdslb.com/bfs/album/88ac0f630e41feb972091f4374978085552302f9.jpg@1080w.webp",
   },
   {
-    author: "ZZZ纸盒",
+    uid: "5298187",
     image:
-      "https://i0.hdslb.com/bfs/album/6cda17aad4996aaa2f4a85cb0747f931030869bd.jpg",
+      "https://i0.hdslb.com/bfs/album/6cda17aad4996aaa2f4a85cb0747f931030869bd.jpg@1080w.webp",
   },
   {
-    author: "ZZZ纸盒",
+    uid: "5298187",
     image:
-      "https://i0.hdslb.com/bfs/album/1be24be9ebad821200985392b61cc016cf4c3648.jpg",
+      "https://i0.hdslb.com/bfs/album/1be24be9ebad821200985392b61cc016cf4c3648.jpg@1080w.webp",
   },
 ];
 
-const carousel = getRandomArrayElements(images, 2);
+const carousel = [{ uid: "2648890", image: Bella }].concat(
+  getRandomArrayElements(images, 2)
+);
 
 function getRandomArrayElements(arr: any[], count: number) {
   var shuffled = arr.slice(0),
@@ -53,25 +55,24 @@ function getRandomArrayElements(arr: any[], count: number) {
 </script>
 
 <template>
-  <el-row justify="center">
+  <el-row class="banner-box" justify="center">
     <el-col :span="23">
       <el-card :body-style="{ padding: '0px' }" shadow="hover">
-        <el-carousel height="calc(100vh - 100px)" arrow="never" trigger="click">
-          <el-carousel-item>
-            <img :src="Bella" />
-          </el-carousel-item>
+        <el-carousel
+          height="calc(100vh - 130px)"
+          :interval="5000"
+          arrow="never"
+          trigger="click"
+        >
           <el-carousel-item v-for="item in carousel">
             <el-tooltip
               effect="dark"
               placement="right"
               :offset="-130"
               :show-after="500"
-              :content="`作者：` + item.author"
+              :content="`uid: ` + item.uid"
             >
-              <img
-                :src="item.image + `@900w.webp`"
-                referrerpolicy="no-referrer"
-              />
+              <img :src="item.image" referrerpolicy="no-referrer" />
             </el-tooltip>
           </el-carousel-item>
         </el-carousel>
@@ -85,5 +86,8 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.banner-box {
+  margin-bottom: 40px;
 }
 </style>

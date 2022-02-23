@@ -56,7 +56,7 @@ export default defineConfig({
   ],
   base: "./",
   build: {
-    assetsInlineLimit: 131072,
+    assetsInlineLimit: 262144,
   },
   server: {
     host: true,

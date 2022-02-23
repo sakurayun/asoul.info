@@ -8,7 +8,7 @@ import Banner from "./components/Banner.vue";
   <ReloadPrompt />
   <el-container>
     <el-header><Header /></el-header>
-    <el-main style="max-width: 1080px; margin: auto">
+    <el-main style="width: 100%; max-width: 1080px; margin: auto">
       <Banner />
       <router-view />
     </el-main>
@@ -26,7 +26,7 @@ import Banner from "./components/Banner.vue";
 html {
   background-color: #f4f4f4;
 }
-.el-row {
-  margin-bottom: 20px;
+.el-card {
+  --el-card-border-radius: 9px;
 }
 </style>
