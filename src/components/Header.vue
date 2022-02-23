@@ -21,7 +21,6 @@ onBeforeMount(() => {
             live: (
               await parse(
                 "https://rss.asoul.info/live/" + (member as string),
-                //"https://rss.asoul.info/bilibili/live/room/3",
                 {}
               )
             ).items[0],
@@ -56,19 +55,19 @@ onBeforeMount(() => {
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/dynamic">动态</el-menu-item>
       <el-menu-item index="/rss">RSS订阅</el-menu-item>
+      <div class="toolbar-action toolbar-side">
+        <el-space class="sub-action" size="large" wrap>
+          <a v-for="live in store.getLive" target="_blank" :href="live.link">
+            <el-avatar :src="live.avatar"></el-avatar>
+          </a>
+          <el-button size="large" :icon="Moon" circle></el-button>
+        </el-space>
+      </div>
     </el-menu>
     <div class="toolbar-title toolbar-side">
       <el-link :underline="false" class="site-title" href="/">
         A-Soul Info
       </el-link>
-    </div>
-    <div class="toolbar-action toolbar-side">
-      <el-space>
-        <a v-for="live in store.getLive" target="_blank" :href="live.link">
-          <el-avatar :src="live.avatar"></el-avatar>
-        </a>
-        <el-button size="large" :icon="Moon" circle></el-button>
-      </el-space>
     </div>
   </div>
 </template>
@@ -95,12 +94,30 @@ onBeforeMount(() => {
   left: 0;
   padding-left: 80px;
 }
-.site-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-}
 .toolbar-action {
   right: 0;
   padding-right: 80px;
+}
+.site-title {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .toolbar-action {
+    display: none !important;
+  }
+  .toolbar-nav {
+    height: 59px;
+    padding-left: 100%;
+    justify-content: flex-end !important;
+  }
+  .toolbar-title {
+    transform: translate(-56px);
+    padding-left: 50% !important;
+  }
+  .sub-action {
+    margin-left: 8px;
+  }
 }
 </style>

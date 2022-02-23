@@ -155,7 +155,6 @@ export const useStore = defineStore("main", {
       let member: keyof members;
       let fans: { avatar: string; count: number; followers: string[] }[] = [];
       for (member in state.fans) {
-        console.log(member);
         let n: number = 0;
         let m: string[] = [];
         if (state.fans[member].length > 0) {

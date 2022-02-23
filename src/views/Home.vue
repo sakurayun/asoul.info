@@ -93,7 +93,7 @@ onBeforeMount(() => {
     </el-col>
   </el-row>
 
-  <el-row :gutter="20">
+  <el-row :gutter="20" justify="center">
     <el-col class="info-box" :md="18" :sm="17">
       <el-card :body-style="{ padding: '10px' }" shadow="hover">
         <template #header>
@@ -123,7 +123,7 @@ onBeforeMount(() => {
       </el-card>
     </el-col>
 
-    <el-col class="info-box" :md="6" :sm="7">
+    <el-col class="info-box" :md="6" :sm="7" :xs="21">
       <el-card shadow="hover">
         <el-skeleton :loading="store.loading.fans" animated>
           <template #template>
