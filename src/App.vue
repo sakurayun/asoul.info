@@ -8,7 +8,7 @@ import Banner from "./components/Banner.vue";
   <ReloadPrompt />
   <el-container>
     <el-header><Header /></el-header>
-    <el-main style="width: 100%; max-width: 1080px; margin: auto">
+    <el-main class="main-container">
       <Banner />
       <router-view />
     </el-main>
@@ -21,12 +21,22 @@ import Banner from "./components/Banner.vue";
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 }
 html {
   background-color: #f4f4f4;
 }
 .el-card {
   --el-card-border-radius: 9px;
+}
+.el-dialog {
+  --el-border-radius-small: 9px;
+}
+.el-cascader-menu {
+  min-width: unset !important;
+}
+.main-container {
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
 }
 </style>

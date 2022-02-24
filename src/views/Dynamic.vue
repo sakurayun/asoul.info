@@ -87,10 +87,10 @@ for (planform in store.dynamics) {
 
 <template>
   <el-dialog
+    width="280px"
+    title="动态筛选"
     v-model="dialogVisible"
-    title="动态选择"
-    width="360px"
-    :close="reload"
+    v-on:close="reload"
   >
     <el-cascader-panel
       v-model="store.selected"
@@ -99,50 +99,50 @@ for (planform in store.dynamics) {
     />
   </el-dialog>
 
-  <el-row justify="space-between">
-    <div class="title">最近动态</div>
-    <el-button
-      type="text"
-      :loading="store.loading.dynamics"
-      @click="dialogVisible = true"
-    >
-      选择
-    </el-button>
+  <el-row justify="center">
+    <el-col class="title" :md="17" :sm="19" :xs="24">
+      <div>最近动态</div>
+      <el-button
+        type="text"
+        :loading="store.loading.dynamics"
+        @click="dialogVisible = true"
+      >
+        选择
+      </el-button>
+    </el-col>
   </el-row>
 
-  <el-row>
-    <el-col :span="24">
-      <el-card>
-        <ul
-          v-infinite-scroll="load"
-          infinite-scroll-distance="100"
-          class="infinite-list"
-          style="overflow: auto"
-          v-loading="store.loading.dynamics"
-        >
-          <el-timeline>
-            <el-timeline-item
-              v-for="dynamic in dynamics"
-              :timestamp="new Date(dynamic.created).toLocaleString()"
-              placement="top"
-            >
-              <el-card>
-                <div>
-                  <el-avatar size="small" :src="dynamic.planform"></el-avatar>
-                  <el-avatar size="small" :src="dynamic.member"></el-avatar>
+  <el-row justify="center">
+    <el-col :md="17" :sm="19" :xs="24">
+      <el-card
+        class="infinite-list"
+        v-infinite-scroll="load"
+        infinite-scroll-distance="100"
+        v-loading="store.loading.dynamics"
+        shadow="never"
+      >
+        <el-timeline>
+          <el-timeline-item
+            v-for="dynamic in dynamics"
+            :timestamp="new Date(dynamic.created).toLocaleString()"
+            placement="top"
+          >
+            <el-card shadow="hover">
+              <template #header>
+                <div class="card-header">
+                  <el-space wrap>
+                    <el-avatar size="small" :src="dynamic.member"></el-avatar>
+                    <el-avatar size="small" :src="dynamic.planform"></el-avatar>
+                  </el-space>
+                  <el-link type="info" target="_blank" :href="dynamic.link">
+                    原动态
+                  </el-link>
                 </div>
-                <div>{{ dynamic.title }}</div>
-                <div>
-                  <el-tag
-                    ><el-link :icon="View" target="_blank" :href="dynamic.link"
-                      >原动态</el-link
-                    >
-                  </el-tag>
-                </div>
-              </el-card>
-            </el-timeline-item>
-          </el-timeline>
-        </ul>
+              </template>
+              <div>{{ dynamic.title }}</div>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
       </el-card>
     </el-col>
   </el-row>
@@ -152,9 +152,17 @@ for (planform in store.dynamics) {
 .title {
   font-size: 1.5em;
   font-weight: bold;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
+  display: inline-flex;
+  justify-content: space-between;
 }
 .infinite-list {
-  height: calc(100vh - 300px);
+  height: calc(100vh - 150px);
+  overflow: auto;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

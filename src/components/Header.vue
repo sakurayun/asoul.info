@@ -100,7 +100,7 @@ onBeforeMount(() => {
 }
 .site-title {
   font-size: 1.3em;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
@@ -113,7 +113,7 @@ onBeforeMount(() => {
     justify-content: flex-end !important;
   }
   .toolbar-title {
-    transform: translate(-56px);
+    transform: translate(-3.5em);
     padding-left: 50% !important;
   }
   .sub-action {
