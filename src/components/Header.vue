@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import { onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import parse from "rss-to-json";
 import { useStore } from "../utils/stores";
 
 import "element-plus/es/components/notification/style/css";
 import { ElNotification } from "element-plus";
-import { Moon } from "@element-plus/icons-vue";
+import { Sunny, Moon } from "@element-plus/icons-vue";
 
 const store = useStore();
+const pathname = ref("");
+const darkMode = ref(false);
+
+// 夜间模式
+function changemode() {
+  darkMode.value = !darkMode.value;
+  document.body.classList.toggle("dark");
+}
 
 onBeforeMount(() => {
+  // 获取当前路径
+  pathname.value = window.location.pathname;
   // 获取直播状态
   store.live = [];
   Promise.all(
@@ -51,7 +61,12 @@ onBeforeMount(() => {
 
 <template>
   <div class="toolbar">
-    <el-menu mode="horizontal" class="toolbar-nav" default-active="/" router>
+    <el-menu
+      class="toolbar-nav"
+      mode="horizontal"
+      :default-active="pathname"
+      router
+    >
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/dynamic">动态</el-menu-item>
       <el-menu-item index="/rss">RSS订阅</el-menu-item>
@@ -60,14 +75,19 @@ onBeforeMount(() => {
           <a v-for="live in store.getLive" target="_blank" :href="live.link">
             <el-avatar :src="live.avatar"></el-avatar>
           </a>
-          <el-button size="large" :icon="Moon" circle></el-button>
+          <el-button
+            @click="changemode"
+            :icon="darkMode ? Sunny : Moon"
+            size="large"
+            circle
+          ></el-button>
         </el-space>
       </div>
     </el-menu>
     <div class="toolbar-title toolbar-side">
-      <el-link :underline="false" class="site-title" href="/">
-        A-Soul Info
-      </el-link>
+      <el-link class="site-title" :underline="false" href="/"
+        >A-Soul Info</el-link
+      >
     </div>
   </div>
 </template>
@@ -78,7 +98,7 @@ onBeforeMount(() => {
   left: 0;
   width: 100%;
   position: fixed;
-  z-index: 2021;
+  z-index: 723;
 }
 .toolbar-nav {
   justify-content: center;

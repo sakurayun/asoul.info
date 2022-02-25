@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import parse from "rss-to-json";
-import { View } from "@element-plus/icons-vue";
 import { useStore, planforms, members } from "../utils/stores";
 
 const store = useStore();
@@ -11,6 +10,7 @@ let member: keyof members;
 
 const dynamics = ref(<any[]>[]);
 
+// 加载动态
 const load = () => {
   dynamics.value = store.getDynamics.slice(0, dynamics.value.length + 5);
 };
@@ -100,20 +100,17 @@ for (planform in store.dynamics) {
   </el-dialog>
 
   <el-row justify="center">
-    <el-col class="title" :md="17" :sm="19" :xs="24">
-      <div>最近动态</div>
-      <el-button
-        type="text"
-        :loading="store.loading.dynamics"
-        @click="dialogVisible = true"
-      >
-        选择
-      </el-button>
-    </el-col>
-  </el-row>
-
-  <el-row justify="center">
     <el-col :md="17" :sm="19" :xs="24">
+      <div class="title">
+        <span>最近动态</span>
+        <el-button
+          type="text"
+          :loading="store.loading.dynamics"
+          @click="dialogVisible = true"
+          >选择</el-button
+        >
+      </div>
+
       <el-card
         class="infinite-list"
         v-infinite-scroll="load"
@@ -134,9 +131,9 @@ for (planform in store.dynamics) {
                     <el-avatar size="small" :src="dynamic.member"></el-avatar>
                     <el-avatar size="small" :src="dynamic.planform"></el-avatar>
                   </el-space>
-                  <el-link type="info" target="_blank" :href="dynamic.link">
-                    原动态
-                  </el-link>
+                  <el-link :href="dynamic.link" target="_blank" type="info"
+                    >原动态</el-link
+                  >
                 </div>
               </template>
               <div>{{ dynamic.title }}</div>
@@ -149,20 +146,8 @@ for (planform in store.dynamics) {
 </template>
 
 <style scoped>
-.title {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  display: inline-flex;
-  justify-content: space-between;
-}
 .infinite-list {
   height: calc(100vh - 150px);
   overflow: auto;
-}
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 </style>

@@ -140,7 +140,7 @@ export const useStore = defineStore("main", {
 
     getSchedules(state) {
       for (let index in state.schedules) {
-        if (state.schedules[index].description.match(/日程表/)[0]) {
+        if (state.schedules[index].description.match(/日程表/) != null) {
           return {
             link: state.schedules[index].link,
             image: state.schedules[index].description

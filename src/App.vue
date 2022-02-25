@@ -31,12 +31,33 @@ html {
 .el-dialog {
   --el-border-radius-small: 9px;
 }
+
+/* element样式修改 */
 .el-cascader-menu {
   min-width: unset !important;
 }
+
+/* 主页样式 */
 .main-container {
   width: 100%;
   max-width: 1080px;
   margin: auto;
+}
+
+/* 全局通用样式 */
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  display: flex;
+  justify-content: space-between;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.info-box {
+  margin-bottom: 10px;
 }
 </style>

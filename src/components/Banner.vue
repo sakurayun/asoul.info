@@ -72,7 +72,11 @@ function getRandomArrayElements(arr: any[], count: number) {
               :show-after="500"
               :content="`uid: ` + item.uid"
             >
-              <img :src="item.image" referrerpolicy="no-referrer" />
+              <img
+                :src="item.image"
+                :alt="item.image"
+                referrerpolicy="no-referrer"
+              />
             </el-tooltip>
           </el-carousel-item>
         </el-carousel>

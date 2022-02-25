@@ -80,10 +80,18 @@ onBeforeMount(() => {
               </el-carousel-item>
             </template>
             <template #default>
-              <img :src="store.getArticles[0].image" alt="" class="toolImg" />
+              <img
+                :src="store.getArticles[0].image"
+                alt="toolImg"
+                class="toolImg"
+              />
               <el-carousel-item v-for="item in store.getArticles">
                 <a target="_blank" :href="item.link">
-                  <img :src="item.image" referrerpolicy="no-referrer" />
+                  <img
+                    :src="item.image"
+                    :alt="item.image"
+                    referrerpolicy="no-referrer"
+                  />
                 </a>
               </el-carousel-item>
             </template>
@@ -100,9 +108,9 @@ onBeforeMount(() => {
           <div class="card-header">
             <span>日程表</span>
             <el-link
-              type="info"
-              target="_blank"
               :href="store.getSchedules?.link"
+              target="_blank"
+              type="info"
               >原动态</el-link
             >
           </div>
@@ -116,6 +124,7 @@ onBeforeMount(() => {
           <template #default>
             <img
               :src="store.getSchedules?.image"
+              alt="Schedule"
               referrerpolicy="no-referrer"
             />
           </template>
@@ -156,9 +165,7 @@ onBeforeMount(() => {
                     trigger="hover"
                     :content="scope.row.followers.toLocaleString()"
                   >
-                    <template #reference>
-                      {{ scope.row.count }}
-                    </template>
+                    <template #reference>{{ scope.row.count }}</template>
                   </el-popover>
                 </template>
               </el-table-column>
@@ -179,14 +186,6 @@ img {
 }
 .article-box {
   margin-bottom: 20px;
-}
-.info-box {
-  margin-bottom: 10px;
-}
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .skeleton-img {
   width: 100%;
