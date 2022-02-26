@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount } from "vue";
 import parse from "rss-to-json";
-import { useStore, members } from "../utils/stores";
+import { useStore, members, RSSUrl, uid } from "../utils/stores";
 
 const store = useStore();
 
@@ -10,12 +10,7 @@ onBeforeMount(() => {
   (async () => {
     try {
       store.updateArticle(
-        (
-          await parse(
-            "https://rss.asoul.info/bilibili/user/article/703007996",
-            {}
-          )
-        ).items
+        (await parse(RSSUrl["article"] + uid["bilibili"]["official"], {})).items
       );
       store.loading.articles = false;
     } catch (error) {
@@ -27,7 +22,7 @@ onBeforeMount(() => {
   (async () => {
     try {
       store.updateSchedule(
-        (await parse("https://rss.asoul.info/weibo/official", {})).items
+        (await parse(RSSUrl["weibo"] + uid["weibo"]["official"], {})).items
       );
       store.loading.schedules = false;
     } catch (error) {
@@ -44,7 +39,7 @@ onBeforeMount(() => {
             member as keyof members,
             (
               await parse(
-                "https://rss.asoul.info/fans/" + (member as string),
+                RSSUrl["fans"] + uid["bilibili"][member as keyof members],
                 {}
               )
             ).items

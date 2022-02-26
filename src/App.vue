@@ -36,6 +36,9 @@ html {
 .el-cascader-menu {
   min-width: unset !important;
 }
+.el-message {
+  --el-message-min-width: 270px !important;
+}
 
 /* 主页样式 */
 .main-container {

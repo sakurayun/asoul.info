@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import parse from "rss-to-json";
-import { useStore, planforms, members } from "../utils/stores";
+import { useStore, planforms, members, RSSUrl, uid } from "../utils/stores";
 
 const store = useStore();
-
-let planform: keyof planforms;
-let member: keyof members;
 
 const dynamics = ref(<any[]>[]);
 
@@ -32,12 +29,7 @@ onBeforeMount(
             store.updateDynamic(
               planform,
               member,
-              (
-                await parse(
-                  "https://rss.asoul.info/" + planform + "/" + member,
-                  {}
-                )
-              ).items
+              (await parse(RSSUrl[planform] + uid[planform][member], {})).items
             );
             options.forEach((option) => {
               if (option.value === planform) {
@@ -71,6 +63,9 @@ const options: {
   label: keyof planforms;
   children: { value: keyof members; label: keyof members; disabled: boolean }[];
 }[] = [];
+
+let planform: keyof planforms;
+let member: keyof members;
 
 for (planform in store.dynamics) {
   const children = [];

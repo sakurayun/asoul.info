@@ -1,60 +1,65 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useStore, planforms, members } from "../utils/stores";
+import { useStore, planforms, members, RSSUrl, uid } from "../utils/stores";
 
 import "element-plus/es/components/message/style/css";
 import { ElMessage } from "element-plus";
 
 const store = useStore();
 
-let planform: keyof planforms;
-let member: keyof members;
-
 // 复制内容
 function copy(data: string) {
   navigator.clipboard.writeText(data).then(
     () => {
-      ElMessage.success("复制成功");
+      ElMessage({
+        message: "复制成功",
+        type: "success",
+        offset: 70,
+      });
     },
     () => {
-      ElMessage.error("复制失败");
+      ElMessage({
+        message: "复制失败",
+        type: "error",
+        offset: 70,
+      });
     }
   );
 }
 
 // 创建自定订阅地址
-const custom_selected = ref("/bilibili/user/video/393396916");
-
-const custom_url = computed(
-  () => "https://rss.asoul.info" + custom_selected.value
-);
-
 const custom_options = [
-  { description: "贾布加布的投稿", url: "/bilibili/user/video/393396916" },
-  { description: "魂报的专栏", url: "/bilibili/user/article/619440171" },
-  { description: "ASOUL周报的动态", url: "/bilibili/user/dynamic/1185499676" },
+  { description: "ASOUL周报的动态", url: RSSUrl["bilibili"] + "1185499676" },
+  { description: "贾布加布的投稿", url: RSSUrl["video"] + "393396916" },
+  { description: "魂报的专栏", url: RSSUrl["article"] + "619440171" },
   {
     description: "ASOUL微博超话",
-    url: "/weibo/super_index/10080861838dd4bdf01b1414e70089ca10d776",
+    url: RSSUrl["super"] + "10080861838dd4bdf01b1414e70089ca10d776",
   },
 ];
 
-// 创建成员动态选项卡
-const dynamic_selected = ref(["bilibili", "official"]);
+const custom_selected = ref(custom_options[0].url);
 
+// 创建成员动态选项卡
 const dynamic_url = computed(
   () =>
-    "https://rss.asoul.info/" +
-    dynamic_selected.value[0] +
-    "/" +
-    dynamic_selected.value[1]
+    RSSUrl[dynamic_selected.value[0]] +
+    uid[dynamic_selected.value[0]][dynamic_selected.value[1]]
 );
+
+const dynamic_selected = ref(<[keyof planforms, keyof members]>[
+  "bilibili",
+  "official",
+]);
 
 const dynamic_options: {
   value: keyof planforms;
   label: keyof planforms;
   children: { value: keyof members; label: keyof members }[];
 }[] = [];
+
+let planform: keyof planforms;
+let member: keyof members;
 
 for (planform in store.dynamics) {
   const children = [];
@@ -106,7 +111,9 @@ for (planform in store.dynamics) {
         <template #header>
           <div class="card-header">
             <span>自定订阅地址</span>
-            <el-button @click="copy(custom_url)" type="text">复制</el-button>
+            <el-button @click="copy(custom_selected)" type="text"
+              >复制</el-button
+            >
           </div>
         </template>
         <div class="rss-box">
@@ -116,10 +123,10 @@ for (planform in store.dynamics) {
             }}</el-radio>
           </el-radio-group>
           <div class="rss-link">
-            <el-tooltip :content="custom_url" placement="top">
+            <el-tooltip :content="custom_selected" placement="top">
               <el-link
                 :underline="false"
-                :href="custom_url"
+                :href="custom_selected"
                 target="_blank"
                 type="primary"
                 >订阅链接</el-link

@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import parse from "rss-to-json";
-import { useStore } from "../utils/stores";
+import { useStore, members, RSSUrl, roomID } from "../utils/stores";
 
 import "element-plus/es/components/notification/style/css";
 import { ElNotification } from "element-plus";
 import { Sunny, Moon } from "@element-plus/icons-vue";
 
 const store = useStore();
+
 const pathname = ref("");
-const darkMode = ref(false);
 
 // 夜间模式
 function changemode() {
-  darkMode.value = !darkMode.value;
+  store.darkMode = !store.darkMode;
   document.body.classList.toggle("dark");
 }
 
@@ -29,10 +29,7 @@ onBeforeMount(() => {
           store.updateLive({
             member: member,
             live: (
-              await parse(
-                "https://rss.asoul.info/live/" + (member as string),
-                {}
-              )
+              await parse(RSSUrl["live"] + roomID[member as keyof members], {})
             ).items[0],
           });
           resolve();
@@ -77,7 +74,7 @@ onBeforeMount(() => {
           </a>
           <el-button
             @click="changemode"
-            :icon="darkMode ? Sunny : Moon"
+            :icon="store.darkMode ? Sunny : Moon"
             size="large"
             circle
           ></el-button>
