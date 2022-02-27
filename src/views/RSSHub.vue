@@ -2,7 +2,7 @@
 import { ref, computed } from "vue";
 import { useStore, planforms, members, RSSUrl, uid } from "../utils/stores";
 
-import "element-plus/es/components/message/style/css";
+import 'element-plus/theme-chalk/src/message.scss'
 import { ElMessage } from "element-plus";
 
 const store = useStore();

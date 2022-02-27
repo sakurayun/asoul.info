@@ -1,0 +1,19 @@
+$dark-bg-color-base: #121212;
+$dark-mixed-color: #fc966e;
+@import "element-plus-dark/index.scss";
+
+.element-plus-dark {
+  background-color: var(--dark-bg-color-base);
+
+  .el-menu {
+    --el-menu-border-color: null;
+    --el-menu-bg-color: var(--dark-bg-color-light-1);
+  }
+  .el-card {
+    --el-card-border-color: null;
+    --el-card-bg-color: var(--dark-bg-color-light-2);
+    .el-card {
+      --el-card-bg-color: var(--dark-bg-color-light-1);
+    }
+  }
+}

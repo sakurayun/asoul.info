@@ -1,0 +1,38 @@
+/* element主题 */
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  $colors: (
+    "primary": (
+      "base": #fc966e,
+    ),
+  ),
+  $message: (
+    "min-width": 270px,
+  ),
+  $card: (
+    "border-radius": 9px,
+  )
+);
+
+.el-dialog {
+  border-radius: 9px !important;
+}
+.el-cascader-menu {
+  min-width: unset !important;
+}
+
+/* 全局通用样式 */
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  display: flex;
+  justify-content: space-between;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.info-box {
+  margin-bottom: 10px;
+}

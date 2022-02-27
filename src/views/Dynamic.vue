@@ -99,9 +99,10 @@ for (planform in store.dynamics) {
       <div class="title">
         <span>最近动态</span>
         <el-button
-          type="text"
+          class="select-button"
           :loading="store.loading.dynamics"
           @click="dialogVisible = true"
+          type="text"
           >选择</el-button
         >
       </div>
@@ -141,6 +142,9 @@ for (planform in store.dynamics) {
 </template>
 
 <style scoped>
+.select-button{
+  width: 64px;
+}
 .infinite-list {
   height: calc(100vh - 150px);
   overflow: auto;

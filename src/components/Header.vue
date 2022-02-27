@@ -3,7 +3,7 @@ import { ref, onBeforeMount } from "vue";
 import parse from "rss-to-json";
 import { useStore, members, RSSUrl, roomID } from "../utils/stores";
 
-import "element-plus/es/components/notification/style/css";
+import 'element-plus/theme-chalk/src/notification.scss'
 import { ElNotification } from "element-plus";
 import { Sunny, Moon } from "@element-plus/icons-vue";
 
@@ -14,7 +14,7 @@ const pathname = ref("");
 // 夜间模式
 function changemode() {
   store.darkMode = !store.darkMode;
-  document.body.classList.toggle("dark");
+  document.body.classList.toggle("element-plus-dark");
 }
 
 onBeforeMount(() => {

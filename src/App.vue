@@ -2,6 +2,7 @@
 import ReloadPrompt from "./components/ReloadPrompt.vue";
 import Header from "./components/Header.vue";
 import Banner from "./components/Banner.vue";
+import "./styles/dark.scss";
 </script>
 
 <template>
@@ -22,45 +23,15 @@ import Banner from "./components/Banner.vue";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-html {
+
+body {
+  margin: 0;
   background-color: #f4f4f4;
 }
-.el-card {
-  --el-card-border-radius: 9px;
-}
-.el-dialog {
-  --el-border-radius-small: 9px;
-}
 
-/* element样式修改 */
-.el-cascader-menu {
-  min-width: unset !important;
-}
-.el-message {
-  --el-message-min-width: 270px !important;
-}
-
-/* 主页样式 */
 .main-container {
   width: 100%;
   max-width: 1080px;
   margin: auto;
-}
-
-/* 全局通用样式 */
-.title {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  display: flex;
-  justify-content: space-between;
-}
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.info-box {
-  margin-bottom: 10px;
 }
 </style>

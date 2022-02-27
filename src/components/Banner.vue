@@ -59,7 +59,7 @@ function getRandomArrayElements(arr: any[], count: number) {
     <el-col :span="23">
       <el-card :body-style="{ padding: '0px' }" shadow="hover">
         <el-carousel
-          height="calc(100vh - 130px)"
+          height="calc(100vh - 110px)"
           :interval="5000"
           arrow="never"
           trigger="click"
